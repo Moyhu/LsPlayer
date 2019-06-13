@@ -34,6 +34,25 @@ HEADERS += \
 FORMS += \
         view/mainwindow.ui
 
+INCLUDEPATH += \
+        $$PWD/thirdparty/ffmpeg-20190529-d903c09-win64-dev/include \
+        $$PWD/thirdparty/sdl-x86_64-w64-mingw32/include
+
+LIBS += \
+        -L$$PWD/thirdparty/ffmpeg-20190529-d903c09-win64-dev/lib \
+        -L$$PWD/thirdparty/sdl-x86_64-w64-mingw32/lib \
+        -lavformat \
+        -lavdevice \
+        -lavcodec \
+        -lswscale \
+        -lavutil \
+        -lswresample \
+        -lm \
+        -lz \
+        -lSDL2 \
+        -lSDL2main \
+        -lSDL2_test
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
