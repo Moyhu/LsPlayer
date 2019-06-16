@@ -24,11 +24,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+QMAKE_CXXFLAGS += \
+                -D__STDC_FORMAT_MACROS \
+                -fpermissive
+
 SOURCES += \
-        src/main.cpp \
+        core/liomodule.cpp \
+        core/lplayercore.cpp \
+        lutil/lvessel.cpp \
+        app/main.cpp \
+        app/lplayercallbackimpl.cpp \
         view/mainwindow.cpp
 
 HEADERS += \
+        core/liomodule.h \
+        core/lplayercallback.h \
+        core/lplayercore.h \
+        lutil/lthread.h \
+        lutil/lthread_base.h \
+        lutil/lvessel.h \
+        app/lplayercallbackimpl.h \
         view/mainwindow.h
 
 FORMS += \
@@ -52,6 +67,10 @@ LIBS += \
         -lSDL2 \
         -lSDL2main \
         -lSDL2_test
+
+DEFINES += \
+        QT_NO_WARNING_OUTPUT \
+        QT_NO_DEBUG_OUTPUT
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

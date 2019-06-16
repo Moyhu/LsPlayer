@@ -1,6 +1,7 @@
 #include "view/mainwindow.h"
 #include <QApplication>
 #include <QDebug>
+#include "lplayercallbackimpl.h"
 
 extern "C"{
 #include <libavcodec/avcodec.h>
@@ -8,6 +9,8 @@ extern "C"{
 
 #undef main
 }
+
+#include "core/lplayercore.h"
 
 void fftest()
 {
@@ -154,8 +157,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    fftest();
-    sdltest();
+//    fftest();
+//    sdltest();
 
     MainWindow w;
     w.show();
