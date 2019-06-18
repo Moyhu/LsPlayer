@@ -29,19 +29,19 @@ QMAKE_CXXFLAGS += \
                 -fpermissive
 
 SOURCES += \
-        core/liomodule.cpp \
+        core/iothread.cpp \
         core/lplayercore.cpp \
+        lutil/lthread.cpp \
         lutil/lvessel.cpp \
         app/main.cpp \
         app/lplayercallbackimpl.cpp \
         view/mainwindow.cpp
 
 HEADERS += \
-        core/liomodule.h \
+        core/iothread.h \
         core/lplayercallback.h \
         core/lplayercore.h \
         lutil/lthread.h \
-        lutil/lthread_base.h \
         lutil/lvessel.h \
         app/lplayercallbackimpl.h \
         view/mainwindow.h

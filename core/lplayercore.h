@@ -2,7 +2,7 @@
 #define LPLAYERCORE_H
 
 #include "lplayercallback.h"
-#include "liomodule.h"
+#include "iothread.h"
 #include "lutil/lvessel.h"
 #include <string>
 

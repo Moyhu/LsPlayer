@@ -5,22 +5,23 @@
 #include "lutil/lthread.h"
 #include "lplayercallback.h"
 
-class LIOModule : public LThread
+class IOThread
 {
 public:
-    LIOModule();
+    IOThread();
 
-    ~LIOModule();
+    ~IOThread();
 
     void registerCallback(LPlayerCallback *cb);
 
     void initialize();
 
 protected:
-    virtual void run();
+    void run();
 
 private:
-    LPlayerCallback *m_cb;
+    LPlayerCallback*    m_cb;
+    LThread             m_thread;
 };
 
 #endif // LIOMODULE_H

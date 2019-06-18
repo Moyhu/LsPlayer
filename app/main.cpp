@@ -2,7 +2,9 @@
 #include <QApplication>
 #include <QDebug>
 #include "lplayercallbackimpl.h"
-
+#include "lutil/lthread.h"
+#include <iostream>
+#include <QTime>
 extern "C"{
 #include <libavcodec/avcodec.h>
 #include <SDL2/SDL.h>
@@ -153,13 +155,41 @@ void sdltest()
     SDL_Quit();
 }
 
+class test
+{
+public:
+    test() {}
+    void test1(){
+        lt.start(&test::go, this, 6);
+    }
+
+    void go(int i) {
+        std::cout << "start !!" << i << std::endl;
+        QString time;
+        while (1)
+        {
+            static int cnt = 0;
+            time = QTime::currentTime().toString();
+            std::cout << cnt++ << "  "<< time.toStdString() << std::endl;
+            LThread::msleep(100);
+            if (cnt > 50)
+                break;
+        }
+    }
+    LThread lt;
+};
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
 //    fftest();
 //    sdltest();
-
+    {
+    test t;
+    t.test1();
+    LThread::sleep(5);
+    }
     MainWindow w;
     w.show();
     return a.exec();
