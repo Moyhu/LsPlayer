@@ -29,8 +29,11 @@ void LPlayerCore::registerCallback(LPlayerCallback *cb)
 
 void LPlayerCore::initialize()
 {
-    m_ioQueue = new LVessel(sizeof(AVPacket), 20);
-    m_decodeQueue = new LVessel(sizeof(AVFrame*), 3);
+    m_packetQueue = new LQueue(sizeof(AVPacket), 20);
+    m_packetQueue->traverse(initPacketQueue);
+    m_frameQueue = new LQueue(sizeof(AVFrame*), 3);
+    m_frameQueue->traverse(initFrameQueue);
+    m_io.initialize(m_packetQueue);
 }
 
 void LPlayerCore::setMediaURL(char* url)
@@ -278,7 +281,7 @@ int LPlayerCore::openCodecContext(int *stream_idx, AVCodecContext **dec_ctx, AVF
     return 0;
 }
 
-void initIOQueue(int index, unsigned char *data, int size)
+void LPlayerCore::initPacketQueue(int index, unsigned char *data, int size)
 {
     AVPacket *pkt = (AVPacket*)data;
     av_init_packet(pkt);
@@ -286,7 +289,7 @@ void initIOQueue(int index, unsigned char *data, int size)
     pkt->size = 0;
 }
 
-void destoryIOQueue(int index, unsigned char *data, int size)
+void LPlayerCore::destoryPacketQueue(int index, unsigned char *data, int size)
 {
     AVPacket *pkt = (AVPacket*)data;
     // AVPacket 不需要销毁？？
@@ -294,7 +297,7 @@ void destoryIOQueue(int index, unsigned char *data, int size)
     pkt->size = 0;
 }
 
-void initDecodeQueue(int index, unsigned char *data, int size)
+void LPlayerCore::initFrameQueue(int index, unsigned char *data, int size)
 {
     AVFrame **frame = (AVFrame**)data;
     *frame = av_frame_alloc();
@@ -303,7 +306,7 @@ void initDecodeQueue(int index, unsigned char *data, int size)
     }
 }
 
-void destoryDecodeQueue(int index, unsigned char *data, int size)
+void LPlayerCore::destoryFrameQueue(int index, unsigned char *data, int size)
 {
     AVFrame **frame = (AVFrame**)data;
     av_frame_free(frame);

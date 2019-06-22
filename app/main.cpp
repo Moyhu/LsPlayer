@@ -3,6 +3,7 @@
 #include <QDebug>
 #include "lplayercallbackimpl.h"
 #include "lutil/lthread.h"
+#include "lutil/llog.h"
 #include <iostream>
 #include <QTime>
 extern "C"{
@@ -181,16 +182,18 @@ public:
 
 int main(int argc, char *argv[])
 {
+    LENTER_FUN
     QApplication a(argc, argv);
+    lLog() << "aaaa";
 
 //    fftest();
 //    sdltest();
-    {
-    test t;
-    t.test1();
-    LThread::sleep(5);
-    }
-    MainWindow w;
-    w.show();
-    return a.exec();
+//    {
+//    test t;
+//    t.test1();
+//    LThread::sleep(5);
+//    }
+//    MainWindow w;
+//    w.show();
+//    return a.exec();
 }

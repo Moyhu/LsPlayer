@@ -29,20 +29,22 @@ QMAKE_CXXFLAGS += \
                 -fpermissive
 
 SOURCES += \
-        core/iothread.cpp \
+        core/iomanager.cpp \
         core/lplayercore.cpp \
+        lutil/llog.cpp \
+        lutil/lqueue.cpp \
         lutil/lthread.cpp \
-        lutil/lvessel.cpp \
         app/main.cpp \
         app/lplayercallbackimpl.cpp \
         view/mainwindow.cpp
 
 HEADERS += \
-        core/iothread.h \
+        core/iomanager.h \
         core/lplayercallback.h \
         core/lplayercore.h \
+        lutil/llog.h \
+        lutil/lqueue.h \
         lutil/lthread.h \
-        lutil/lvessel.h \
         app/lplayercallbackimpl.h \
         view/mainwindow.h
 
@@ -69,8 +71,7 @@ LIBS += \
         -lSDL2_test
 
 DEFINES += \
-        QT_NO_WARNING_OUTPUT \
-        QT_NO_DEBUG_OUTPUT
+        QT_NO_WARNING_OUTPUT
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

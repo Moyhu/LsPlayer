@@ -2,8 +2,8 @@
 #define LPLAYERCORE_H
 
 #include "lplayercallback.h"
-#include "iothread.h"
-#include "lutil/lvessel.h"
+#include "iomanager.h"
+#include "lutil/lqueue.h"
 #include <string>
 
 extern "C" {
@@ -32,13 +32,13 @@ public:
 
 private:
 
-    static void initIOQueue(int, unsigned char *, int);
+    static void initPacketQueue(int, unsigned char *, int);
 
-    static void destoryIOQueue(int, unsigned char *, int);
+    static void destoryPacketQueue(int, unsigned char *, int);
 
-    static void initDecodeQueue(int, unsigned char *, int);
+    static void initFrameQueue(int, unsigned char *, int);
 
-    static void destoryDecodeQueue(int, unsigned char *, int);
+    static void destoryFrameQueue(int, unsigned char *, int);
 
     int openCodecContext(int *stream_idx, AVCodecContext **dec_ctx, AVFormatContext *fmt_ctx, enum AVMediaType type);
 
@@ -46,7 +46,7 @@ private:
 
 private:
     LPlayerCallback*    m_cb;
-    LIOModule           m_io;
+    IOManager           m_io;
 
 
 private:
@@ -63,8 +63,8 @@ private:
     int                 m_width;
     int                 m_height;
 
-    LVessel*            m_ioQueue;
-    LVessel*            m_decodeQueue;
+    LQueue*             m_packetQueue;
+    LQueue*             m_frameQueue;
 
 public:
     int video_frame_count;
